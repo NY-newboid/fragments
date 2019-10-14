@@ -1,0 +1,51 @@
+
+    // FUNCTION to format a date string  like "Tuesday 7th March, 2019",
+    // passes strings as args in STRING RESOURCE
+    
+    private fun elegantDate() :String {
+
+        val year = SimpleDateFormat("yyyy", Locale.US)
+        val month = SimpleDateFormat ("MM", Locale.US)
+        val daydate = SimpleDateFormat ("dd", Locale.US)
+        val strMonth :String
+        val strDayDate :String = daydate.format(Date())
+        val strYear :String = year.format(Date())
+        val strAbbr :String
+
+        when (month.format(Date()).trimStart('0')){
+            "1" -> strMonth ="January"
+            "2" -> strMonth = "February"
+            "3" -> strMonth = "March"
+            "4" -> strMonth = "April"
+            "5" -> strMonth = "May"
+            "6" -> strMonth = "June"
+            "7" -> strMonth = "July"
+            "8" -> strMonth = "August"
+            "9" -> strMonth = "September"
+            "10" -> strMonth = "October"
+            "11" -> strMonth = "November"
+            else -> strMonth = "December"
+        }
+
+        when (strDayDate) {
+            "01","21","31" -> strAbbr = "st"
+            "02","22" -> strAbbr = "nd"
+            "03","23" -> strAbbr = "rd"
+            else -> strAbbr = "th"
+        }
+
+        val calendar: Calendar = Calendar.getInstance()
+        val day  = calendar.get(Calendar.DAY_OF_WEEK)
+        val strDay :String
+
+        when (day.toString()) {
+            "2" -> strDay = "Monday"
+            "3" -> strDay = "Tuesday"
+            "4" -> strDay = "Wednesday"
+            "5" -> strDay = "Thursday"
+            "6" -> strDay = "Friday"
+            "7" -> strDay = "Saturday"
+            else -> strDay = "Sunday"
+        }
+        return getString(R.string.elegant_day_date, strDay, strDayDate.trimStart('0'), strAbbr, strMonth, strYear)
+    }
